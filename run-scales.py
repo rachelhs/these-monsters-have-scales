@@ -3,8 +3,8 @@ import RPi.GPIO as GPIO
 from encoder import Encoder
 
 # keeps track of whether a person is standing on the scales or not
-onToggle = False
-boundaryVal = 80
+global onToggle = False
+global boundaryVal = 80
 
 def valueChanged(value):
     print(value)

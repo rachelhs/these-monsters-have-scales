@@ -3,19 +3,15 @@ import RPi.GPIO as GPIO
 from encoder import Encoder
 
 # keeps track of whether a person is standing on the scales or not
-global onToggle
 onToggle = False
-global boundaryVal
 boundaryVal = 80
 
 def valueChanged(value):
     print(value)
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
-        onToggle = True
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
-        onToggle = False
 
 GPIO.setmode(GPIO.BCM)
 

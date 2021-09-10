@@ -38,6 +38,7 @@ def valueChanged(value):
     global tracker
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
+        global sound
         sound = mixer.Sound(f"{mypath}{sounds[tracker]}")
         playOrStopSound(tracker, onToggle, sound)
         GPIO.output(13, GPIO.HIGH)

@@ -7,6 +7,9 @@ from pygame import mixer
 onToggle = False
 boundaryVal = 80
 
+# tracks how many people have stood on the scales
+tracker = 0
+
 GPIO.setmode(GPIO.BCM)
 # setup GPIO pin to trigger relay (+ disco lamp)
 GPIO.setup(13, GPIO.OUT, initial=GPIO.LOW)
@@ -20,7 +23,6 @@ from os.path import isfile, join
 mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds'
 sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 print(sounds)
-sound = mixer.Sound('/home/pi/Desktop/these-monsters-have-scales/sounds/Respect.mp3')
 
 def valueChanged(value):
     print(value)
@@ -29,6 +31,7 @@ def valueChanged(value):
     global onToggle
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
+        sound = mixer.Sound(mypath + sounds[tracker])
         sound.play()
         GPIO.output(13, GPIO.HIGH)
         onToggle = True
@@ -39,6 +42,8 @@ def valueChanged(value):
         GPIO.output(13, GPIO.LOW)
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()
+        # track that 1 more person has stood on the scales
+        tracker = tracker + 1
 
 # 17 is the white wire, 18 is the green wire
 e1 = Encoder(18, 17, valueChanged)

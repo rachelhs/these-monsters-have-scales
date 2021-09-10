@@ -23,8 +23,7 @@ from os.path import isfile, join
 mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds/'
 sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 
-def playOrStopSound(tracker, onToggle):
-    sound = mixer.Sound(f"{mypath}{sounds[tracker]}")
+def playOrStopSound(tracker, onToggle, sound):
     if (onToggle == False):
         sound.play()
     else:
@@ -39,12 +38,13 @@ def valueChanged(value):
     global tracker
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
-        playOrStopSound(tracker, onToggle)
+        sound = mixer.Sound(f"{mypath}{sounds[tracker]}")
+        playOrStopSound(tracker, onToggle, sound)
         GPIO.output(13, GPIO.HIGH)
         onToggle = True
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
-        playOrStopSound(tracker, onToggle)
+        playOrStopSound(tracker, onToggle, sound)
         GPIO.output(13, GPIO.LOW)
         onToggle = False
         # reset back to 0 -> encoder not precise

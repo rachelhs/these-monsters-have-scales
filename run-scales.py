@@ -17,7 +17,7 @@ e1 = Encoder(18, 17, valueChanged)
 try:
     while True:
         #print("Value is {}".format(e1.getValue()))
-except Exception:
-    pass
+    except Exception:
+        pass
 
 GPIO.cleanup()

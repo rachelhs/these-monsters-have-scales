@@ -25,7 +25,7 @@ sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 mixers = []
 # make array of mixers
 print(len(sounds))
-for tracks in range(13):
+for tracks in range(12):
     mixers[tracks] = mixer.Sound(f"{mypath}{sounds[tracks]}")
 
 def valueChanged(value):

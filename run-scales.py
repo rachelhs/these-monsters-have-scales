@@ -15,7 +15,7 @@ GPIO.setup(13, GPIO.OUT, initial=GPIO.LOW)
 mixer.init()
 
 # Load the sounds
-sound = mixer.Sound('home/pi/Desktop/these-monsters-have-scales/sounds/Respect.mp3')
+sound = mixer.Sound('/home/pi/Desktop/these-monsters-have-scales/sounds/Respect.mp3')
 
 def valueChanged(value):
     print(value)

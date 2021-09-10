@@ -15,6 +15,10 @@ GPIO.setup(13, GPIO.OUT, initial=GPIO.LOW)
 mixer.init()
 
 # Load the sounds
+from os import listdir
+from os.path import isfile, join
+sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+print(sounds)
 sound = mixer.Sound('/home/pi/Desktop/these-monsters-have-scales/sounds/Respect.mp3')
 
 def valueChanged(value):

@@ -43,6 +43,7 @@ def valueChanged(value):
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()
         # track that 1 more person has stood on the scales
+        global tracker
         tracker = tracker + 1
 
 # 17 is the white wire, 18 is the green wire

@@ -30,6 +30,7 @@ def valueChanged(value):
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
         onToggle = False
+        sound.stop()
         GPIO.output(13, GPIO.LOW)
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()

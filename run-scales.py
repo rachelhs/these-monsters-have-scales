@@ -24,8 +24,8 @@ mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds/'
 sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 
 def playOrStopSound(tracker, onToggle):
+    sound = mixer.Sound(f"{mypath}{sounds[tracker]}")
     if (onToggle == False):
-        sound = mixer.Sound(f"{mypath}{sounds[tracker]}")
         sound.play()
     else:
         sound.stop()

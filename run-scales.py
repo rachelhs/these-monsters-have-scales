@@ -15,6 +15,8 @@ def valueChanged(value):
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
         onToggle = False
+        # reset back to 0 -> encoder not precise
+        value = 0
 
 GPIO.setmode(GPIO.BCM)
 

@@ -8,7 +8,7 @@ pos = 0
 
 def valueChanged(value):
     pos = value
-    print("* New value: {}".format(value))
+    #print("* New value: {}".format(value))
 
 GPIO.setmode(GPIO.BCM)
 
@@ -17,6 +17,7 @@ e1 = Encoder(18, 17, valueChanged)
 
 try:
     while True:
+        print(pos)
         #time.sleep(5)
         if (pos == 40):
             print("PERSON STEPPING ON")

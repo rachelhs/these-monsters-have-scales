@@ -22,7 +22,14 @@ from os import listdir
 from os.path import isfile, join
 mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds/'
 sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
-print(sounds)
+
+def playOrStopSound(tracker, onToggle):
+    if (onToggle == False):
+        sound = mixer.Sound(f"{mypath}{sounds[tracker]}")
+        sound.play()
+    else:
+        sound.stop()
+
 
 def valueChanged(value):
     print(value)
@@ -32,17 +39,14 @@ def valueChanged(value):
     global tracker
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
-        print(mypath)
-        print(sounds[tracker])
-        sound = mixer.Sound(f"{mypath}{sounds[tracker]}")
-        sound.play()
+        playOrStopSound(tracker, onToggle)
         GPIO.output(13, GPIO.HIGH)
         onToggle = True
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
-        onToggle = False
-        sound.stop()
+        playOrStopSound(tracker, onToggle)
         GPIO.output(13, GPIO.LOW)
+        onToggle = False
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()
         # track that 1 more person has stood on the scales

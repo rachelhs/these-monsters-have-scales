@@ -20,7 +20,7 @@ mixer.init()
 # Load the sounds
 from os import listdir
 from os.path import isfile, join
-mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds'
+mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds/'
 sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 print(sounds)
 

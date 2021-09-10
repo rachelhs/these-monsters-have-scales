@@ -24,8 +24,7 @@ mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds/'
 sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 mixers = []
 # make array of mixers
-print(len(sounds))
-for tracks in range(12):
+for tracks in range(len(sounds)):
     mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
 
 def valueChanged(value):
@@ -37,12 +36,15 @@ def valueChanged(value):
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
         mixers[tracker].play()
-        GPIO.output(13, GPIO.HIGH)
+        # disco ball on after 3rd person
+        if (tracker > 3):
+            GPIO.output(13, GPIO.HIGH)
         onToggle = True
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
         mixers[tracker].stop()
-        GPIO.output(13, GPIO.LOW)
+        if (tracker > 3):
+            GPIO.output(13, GPIO.LOW)
         onToggle = False
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()

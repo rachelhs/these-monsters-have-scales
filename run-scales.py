@@ -24,6 +24,7 @@ mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds/'
 sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 mixers = []
 # make array of mixers
+print(len(sounds))
 for tracks in range((len(sounds)-1)):
     mixers[tracks] = mixer.Sound(f"{mypath}{sounds[tracks]}")
 

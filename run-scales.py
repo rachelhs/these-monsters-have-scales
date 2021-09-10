@@ -8,10 +8,13 @@ boundaryVal = 80
 
 def valueChanged(value):
     print(value)
+    global onToggle
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
+        onToggle = True
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
+        onToggle = False
 
 GPIO.setmode(GPIO.BCM)
 

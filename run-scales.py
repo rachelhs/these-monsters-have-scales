@@ -35,7 +35,7 @@ try:
                         if (counter == boundaryVal and onToggle == False):
                             onToggle = True
                             print("Person standing on")
-                        else if (counter == boundaryVal and onToggle == True):
+                        elif (counter == boundaryVal and onToggle == True):
                             onToggle = False
                             print("Person getting off")
                             # set counter back to 0

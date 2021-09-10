@@ -1,6 +1,7 @@
 import time
 import RPi.GPIO as GPIO
 from encoder import Encoder
+from pygame import mixer
 
 # keeps track of whether a person is standing on the scales or not
 onToggle = False
@@ -10,6 +11,11 @@ GPIO.setmode(GPIO.BCM)
 # setup GPIO pin to trigger relay (+ disco lamp)
 GPIO.setup(13, GPIO.OUT, initial=GPIO.LOW)
 
+# Initialize pygame mixer
+mixer.init()
+
+# Load the sounds
+sound = mixer.Sound('/sounds/Respect.mp3')
 
 def valueChanged(value):
     print(value)
@@ -18,6 +24,7 @@ def valueChanged(value):
     global onToggle
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
+        sound.play()
         GPIO.output(13, GPIO.HIGH)
         onToggle = True
     elif (value == boundaryVal and onToggle == True):

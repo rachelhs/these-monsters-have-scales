@@ -14,10 +14,13 @@ counter = 0
 clkLastState = GPIO.input(clk)
 
 # above this value is person getting on scales, below is person getting off
-boundaryVal = 80
+boundaryVal = 10
 
 try:
         while True:
+                # prevent negative values
+                if (counter < 0):
+                    counter = 0
                 clkState = GPIO.input(clk)
                 dtState = GPIO.input(dt)
                 if clkState != clkLastState:

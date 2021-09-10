@@ -4,11 +4,10 @@ import time
 import RPi.GPIO as GPIO
 from encoder import Encoder
 
-global pos = 0
-
 def valueChanged(value):
-    pos = value
-    #print("* New value: {}".format(value))
+    print(value)
+    if (value == 40):
+        print("PERSON STEPPING ON")
 
 GPIO.setmode(GPIO.BCM)
 
@@ -17,7 +16,6 @@ e1 = Encoder(18, 17, valueChanged)
 
 try:
     while True:
-        print(pos)
         #print("Value is {}".format(e1.getValue()))
 except Exception:
     pass

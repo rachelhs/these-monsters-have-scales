@@ -10,7 +10,7 @@ def valueChanged(value):
 GPIO.setmode(GPIO.BCM)
 
 # 17 is the white wire, 18 is the green wire
-e1 = Encoder(17, 18, valueChanged)
+e1 = Encoder(18, 17, valueChanged)
 
 try:
     while True:

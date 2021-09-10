@@ -22,13 +22,10 @@ from os import listdir
 from os.path import isfile, join
 mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds/'
 sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
-
-def playOrStopSound(tracker, onToggle, sound):
-    if (onToggle == False):
-        sound.play()
-    else:
-        sound.stop()
-
+mixers = []
+# make array of mixers
+for tracks in sounds:
+    mixers[tracks] = mixer.Sound(f"{mypath}{sounds[tracks]}")
 
 def valueChanged(value):
     print(value)
@@ -38,14 +35,12 @@ def valueChanged(value):
     global tracker
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
-        global sound
-        sound = mixer.Sound(f"{mypath}{sounds[tracker]}")
-        playOrStopSound(tracker, onToggle, sound)
+        mixers[tracker].play()
         GPIO.output(13, GPIO.HIGH)
         onToggle = True
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
-        playOrStopSound(tracker, onToggle, sound)
+        mixers[tracker].stop()
         GPIO.output(13, GPIO.LOW)
         onToggle = False
         # reset back to 0 -> encoder not precise

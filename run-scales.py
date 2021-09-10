@@ -6,6 +6,11 @@ from encoder import Encoder
 onToggle = False
 boundaryVal = 80
 
+GPIO.setmode(GPIO.BCM)
+# setup GPIO pin to trigger relay (+ disco lamp)
+GPIO.setup(13, GPIO.OUT, initial=GPIO.LOW)
+
+
 def valueChanged(value):
     print(value)
     if (value < 0):
@@ -13,14 +18,14 @@ def valueChanged(value):
     global onToggle
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
+        GPIO.output(13, GPIO.HIGH)
         onToggle = True
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
         onToggle = False
+        GPIO.output(13, GPIO.LOW)
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()
-
-GPIO.setmode(GPIO.BCM)
 
 # 17 is the white wire, 18 is the green wire
 e1 = Encoder(18, 17, valueChanged)

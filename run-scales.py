@@ -14,10 +14,10 @@ GPIO.setmode(GPIO.BCM)
 # 17 is the white wire, 18 is the green wire
 e1 = Encoder(18, 17, valueChanged)
 
-try:
-    while True:
-        #print("Value is {}".format(e1.getValue()))
-    except Exception:
-        pass
+# try:
+#     while True:
+#         #print("Value is {}".format(e1.getValue()))
+# except Exception:
+#         pass
 
 GPIO.cleanup()

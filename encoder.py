@@ -67,3 +67,7 @@ class Encoder:
 
     def getValue(self):
         return self.value
+
+    def resetValue(self):
+        self.value = 0
+        return self.value

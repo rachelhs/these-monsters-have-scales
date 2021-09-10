@@ -16,7 +16,9 @@ def valueChanged(value):
         print("PERSON STEPPING OFF")
         onToggle = False
         # reset back to 0 -> encoder not precise
-        value = 0
+        value = resetValue(value)
+        
+
 
 GPIO.setmode(GPIO.BCM)
 

@@ -8,6 +8,8 @@ boundaryVal = 80
 
 def valueChanged(value):
     print(value)
+    if (value < 0):
+        value = e1.resetValue()
     global onToggle
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
@@ -16,9 +18,7 @@ def valueChanged(value):
         print("PERSON STEPPING OFF")
         onToggle = False
         # reset back to 0 -> encoder not precise
-        value = e1.resetValue(value)
-
-
+        value = e1.resetValue()
 
 GPIO.setmode(GPIO.BCM)
 

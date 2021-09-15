@@ -66,7 +66,12 @@ try:
     while True:
         time.sleep(5)
         if (onToggle):
-            print(channel.get_busy())
+            isPlaying = channel.get_busy
+            print(isPlaying)
+            if (not isPlaying):
+                GPIO.output(8, GPIO.LOW)
+                value = e1.resetValue()
+
         # for event in pygame.event.get():
         #     if event.type == TRACK_END:
         #         print("the song ended!")

@@ -32,6 +32,8 @@ numberOfTracks = len(sounds)
 for tracks in range(numberOfTracks):
     mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
 
+import os
+
 def Shutdown(channel):
     GPIO.cleanup()
     print("SHUTTING DOWN")

@@ -16,7 +16,7 @@ GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 
 # Initialize pygame mixer
 mixer.init()
-pygame.mixer.music.set_endevent(TRACK_END)
+mixer.music.set_endevent(TRACK_END)
 
 # Load the sounds
 from os import listdir

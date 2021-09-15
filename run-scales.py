@@ -34,9 +34,10 @@ def valueChanged(value):
         value = e1.resetValue()
     global onToggle
     global tracker
+    global channel
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
-        mixers[tracker].play()
+        channel = mixers[tracker].play()
         # disco ball on after 3rd person
         if (tracker > 2):
             GPIO.output(8, GPIO.HIGH)
@@ -52,6 +53,8 @@ def valueChanged(value):
         # track that 1 more person has stood on the scales
         tracker = tracker + 1
     # fallback in case scales value doesn't go back down properly
+    elif (channel !== None):
+        print(channel.get_busy())
 
 # 17 is the white wire, 18 is the green wire
 e1 = Encoder(18, 17, valueChanged)

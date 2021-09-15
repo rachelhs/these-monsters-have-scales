@@ -17,8 +17,8 @@ GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 
 # Initialize pygame mixer
 mixer.init()
-TRACK_END = pygame.USEREVENT + 1
-mixer.music.set_endevent(TRACK_END)
+# TRACK_END = pygame.USEREVENT + 1
+# mixer.music.set_endevent(TRACK_END)
 
 # Load the sounds
 from os import listdir
@@ -55,13 +55,15 @@ def valueChanged(value):
         tracker = tracker + 1
     # fallback in case scales value doesn't go back down properly
     elif (onToggle == True):
-        for event in pygame.event.get():
-            if event.type == TRACK_END:
-                print('track finished')
-                # reset the scales
-                value = e1.resetValue()
-                # set pins back to low
-                GPIO.output(8, GPIO.LOW)
+        isPlaying = mixer.music.get_busy()
+        print(isPlaying)
+        # for event in pygame.event.get():
+        #     if event.type == TRACK_END:
+        #         print('track finished')
+        #         # reset the scales
+        #         value = e1.resetValue()
+        #         # set pins back to low
+        #         GPIO.output(8, GPIO.LOW)
 
 # 17 is the white wire, 18 is the green wire
 e1 = Encoder(18, 17, valueChanged)

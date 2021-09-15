@@ -27,8 +27,8 @@ mixers = []
 for tracks in range(len(sounds)):
     mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
 
-for mixer in mixers:
-    mixers[mixer].set_endevent(TRACK_END)
+for i in mixers:
+    mixers[i].set_endevent(TRACK_END)
 
 def valueChanged(value):
     print(value)

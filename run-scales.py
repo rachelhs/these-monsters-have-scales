@@ -54,7 +54,7 @@ def valueChanged(value):
         # track that 1 more person has stood on the scales
         tracker = tracker + 1
     # fallback in case scales value doesn't go back down properly
-    elif (onToggle == True):
+    # elif (onToggle == True):
 
         # for event in pygame.event.get():
         #     if event.type == TRACK_END:

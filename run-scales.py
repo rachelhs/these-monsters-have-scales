@@ -33,7 +33,9 @@ for tracks in range(numberOfTracks):
     mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
 
 def Shutdown(channel):
+    GPIO.cleanup()
     print("SHUTTING DOWN")
+    os.system("sudo shutdown -h now")
 
 # Shutdown function executes when button is pressed
 GPIO.add_event_detect(16, GPIO.FALLING, callback=Shutdown, bouncetime=2000)

@@ -17,6 +17,7 @@ GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 
 # Initialize pygame mixer
 mixer.init()
+TRACK_END = pygame.USEREVENT + 1
 
 # Load the sounds
 from os import listdir
@@ -38,6 +39,7 @@ def valueChanged(value):
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
         channel = mixers[tracker].play()
+        channel.set_endevent(TRACK_END)
         # disco ball on after 3rd person
         if (tracker > 2):
             GPIO.output(8, GPIO.HIGH)
@@ -63,7 +65,9 @@ e1 = Encoder(18, 17, valueChanged)
 try:
     while True:
         time.sleep(5)
-        print(pygame.mixer.music.get_busy())
+            for event in pygame.event.get():
+                if event.type == TRACK_END:
+                print("the song ended!")
 except Exception:
         pass
 

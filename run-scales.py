@@ -39,6 +39,8 @@ def valueChanged(value):
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
         mixers[tracker].play()
+        isPlaying = pygame.mixer.music.get_busy()
+        print(isPlaying)
         # disco ball on after 3rd person
         if (tracker > 2):
             GPIO.output(8, GPIO.HIGH)
@@ -71,8 +73,6 @@ e1 = Encoder(18, 17, valueChanged)
 try:
     while True:
         time.sleep(5)
-        isPlaying = pygame.mixer.music.get_busy()
-        print(isPlaying)
 except Exception:
         pass
 

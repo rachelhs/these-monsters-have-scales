@@ -15,7 +15,7 @@ GPIO.setmode(GPIO.BCM)
 # setup GPIO pin to trigger relay (+ disco lamp)
 GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 # setup pin for shutdown button
-GPIO.setup(16, GPIO.OUT, initial=GPIO.HIGH)
+GPIO.setup(16, GPIO.IN, initial=GPIO.HIGH)
 
 # Initialize pygame mixer
 mixer.init()

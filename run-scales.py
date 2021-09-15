@@ -16,6 +16,7 @@ GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 
 # Initialize pygame mixer
 mixer.init()
+pygame.mixer.music.set_endevent(TRACK_END)
 
 # Load the sounds
 from os import listdir
@@ -26,7 +27,6 @@ mixers = []
 # make array of mixers
 for tracks in range(len(sounds)):
     mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
-    mixer.Sound(f"{mypath}{sounds[tracks]}").set_endevent(TRACK_END)
 
 def valueChanged(value):
     print(value)

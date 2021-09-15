@@ -54,7 +54,7 @@ def valueChanged(value):
     # fallback in case scales value doesn't go back down properly
     elif (onToggle == True):
         for event in pygame.event.get():
-            if event.type == TRACK_END
+            if event.type == TRACK_END:
                 print('track finished')
                 # reset the scales
                 value = e1.resetValue()

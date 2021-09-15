@@ -71,6 +71,7 @@ try:
             if (not isPlaying):
                 GPIO.output(8, GPIO.LOW)
                 value = e1.resetValue()
+                onToggle = False
 
         # for event in pygame.event.get():
         #     if event.type == TRACK_END:

@@ -67,7 +67,7 @@ try:
         time.sleep(5)
         for event in pygame.event.get():
             if event.type == TRACK_END:
-            print("the song ended!")
+                print("the song ended!")
 except Exception:
         pass
 

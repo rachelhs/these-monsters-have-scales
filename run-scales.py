@@ -55,8 +55,7 @@ def valueChanged(value):
         tracker = tracker + 1
     # fallback in case scales value doesn't go back down properly
     elif (onToggle == True):
-        isPlaying = mixer.mixers[tracker].get_busy()
-        print(isPlaying)
+
         # for event in pygame.event.get():
         #     if event.type == TRACK_END:
         #         print('track finished')
@@ -72,6 +71,8 @@ e1 = Encoder(18, 17, valueChanged)
 try:
     while True:
         time.sleep(5)
+        isPlaying = pygame.mixer.music.get_busy()
+        print(isPlaying)
 except Exception:
         pass
 

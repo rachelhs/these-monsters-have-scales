@@ -53,7 +53,7 @@ def valueChanged(value):
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()
         # track that 1 more person has stood on the scales
-        if (tracker < numberOfTracks):
+        if (tracker < (numberOfTracks - 1)):
             tracker = tracker + 1
         # loop back to the beginning if at the end of the playlist
         else:
@@ -78,7 +78,7 @@ try:
                 # reset value to 0
                 value = e1.resetValue()
                 # track that 1 more person has stood on the scales
-                if (tracker < numberOfTracks):
+                if (tracker < (numberOfTracks - 1)):
                     tracker = tracker + 1
                 # loop back to the beginning if at the end of the playlist
                 else:

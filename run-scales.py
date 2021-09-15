@@ -1,6 +1,7 @@
 import time
 import RPi.GPIO as GPIO
 from encoder import Encoder
+import pygame
 from pygame import mixer
 
 # keeps track of whether a person is standing on the scales or not
@@ -16,6 +17,7 @@ GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 
 # Initialize pygame mixer
 mixer.init()
+TRACK_END = pygame.USEREVENT + 1
 mixer.music.set_endevent(TRACK_END)
 
 # Load the sounds

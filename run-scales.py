@@ -24,8 +24,10 @@ from os.path import isfile, join
 mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds/'
 sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 mixers = []
+# count number of tracks
+numberOfTracks = len(sounds)
 # make array of mixers
-for tracks in range(len(sounds)):
+for tracks in range(numberOfTracks):
     mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
 
 def valueChanged(value):
@@ -51,7 +53,11 @@ def valueChanged(value):
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()
         # track that 1 more person has stood on the scales
-        tracker = tracker + 1
+        if (tracker < numberOfTracks):
+            tracker = tracker + 1
+        # loop back to the beginning if at the end of the playlist
+        else:
+            tracker = 0
 
 # 17 is the white wire, 18 is the green wire
 e1 = Encoder(18, 17, valueChanged)
@@ -71,8 +77,12 @@ try:
                 GPIO.output(8, GPIO.LOW)
                 # reset value to 0
                 value = e1.resetValue()
-                # go to next event
-                tracker = tracker + 1
+                # track that 1 more person has stood on the scales
+                if (tracker < numberOfTracks):
+                    tracker = tracker + 1
+                # loop back to the beginning if at the end of the playlist
+                else:
+                    tracker = 0
                 onToggle = False
 
 except Exception:

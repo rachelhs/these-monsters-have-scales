@@ -16,6 +16,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 # setup pin for shutdown button
 GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+# light up LED on startup
+GPIO.setup(26, GPIO.OUT, initial=GPIO.HIGH)
 
 # Initialize pygame mixer
 mixer.init()

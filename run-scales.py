@@ -35,8 +35,8 @@ def valueChanged(value):
     global tracker
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
-        mixers[tracker].play()
         mixers[tracker].set_endevent(TRACK_END)
+        mixers[tracker].play()
         # disco ball on after 3rd person
         if (tracker > 2):
             GPIO.output(8, GPIO.HIGH)

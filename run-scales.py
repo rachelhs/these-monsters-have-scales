@@ -5,7 +5,7 @@ from pygame import mixer
 
 # keeps track of whether a person is standing on the scales or not
 onToggle = False
-boundaryVal = 60
+boundaryVal = 40
 
 # tracks how many people have stood on the scales
 tracker = 0

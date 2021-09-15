@@ -27,6 +27,9 @@ mixers = []
 for tracks in range(len(sounds)):
     mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
 
+for mixer in mixers:
+    mixers[mixer].set_endevent(TRACK_END)
+
 def valueChanged(value):
     print(value)
     if (value < 0):
@@ -35,7 +38,6 @@ def valueChanged(value):
     global tracker
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
-        mixers[tracker].set_endevent(TRACK_END)
         mixers[tracker].play()
         # disco ball on after 3rd person
         if (tracker > 2):

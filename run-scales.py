@@ -65,9 +65,10 @@ e1 = Encoder(18, 17, valueChanged)
 try:
     while True:
         time.sleep(5)
-        for event in pygame.event.get():
-            if event.type == TRACK_END:
-                print("the song ended!")
+        # for event in pygame.event.get():
+        #     if event.type == TRACK_END:
+        #         print("the song ended!")
+
 except Exception:
         pass
 

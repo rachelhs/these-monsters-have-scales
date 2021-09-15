@@ -5,7 +5,10 @@ from pygame import mixer
 
 # keeps track of whether a person is standing on the scales or not
 onToggle = False
-boundaryVal = 40
+# action starts when scales are on boundaryValUp
+boundaryValUp = 40
+# action stops when scales are on boundaryValDown
+boundaryValDown = 80
 
 # tracks how many people have stood on the scales
 tracker = 0
@@ -33,14 +36,14 @@ def valueChanged(value):
         value = e1.resetValue()
     global onToggle
     global tracker
-    if (value == boundaryVal and onToggle == False):
+    if (value == boundaryValUp and onToggle == False):
         print("PERSON STEPPING ON")
         mixers[tracker].play()
         # disco ball on after 3rd person
         if (tracker > 2):
             GPIO.output(8, GPIO.HIGH)
         onToggle = True
-    elif (value == boundaryVal and onToggle == True):
+    elif (value == boundaryValDown and onToggle == True):
         print("PERSON STEPPING OFF")
         mixers[tracker].stop()
         if (tracker > 2):
@@ -50,6 +53,7 @@ def valueChanged(value):
         value = e1.resetValue()
         # track that 1 more person has stood on the scales
         tracker = tracker + 1
+    # fallback in case scales value doesn't go back down properly
 
 # 17 is the white wire, 18 is the green wire
 e1 = Encoder(18, 17, valueChanged)

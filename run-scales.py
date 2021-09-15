@@ -5,14 +5,14 @@ from pygame import mixer
 
 # keeps track of whether a person is standing on the scales or not
 onToggle = False
-boundaryVal = 80
+boundaryVal = 60
 
 # tracks how many people have stood on the scales
 tracker = 0
 
 GPIO.setmode(GPIO.BCM)
 # setup GPIO pin to trigger relay (+ disco lamp)
-GPIO.setup(13, GPIO.OUT, initial=GPIO.LOW)
+GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 
 # Initialize pygame mixer
 mixer.init()
@@ -38,13 +38,13 @@ def valueChanged(value):
         mixers[tracker].play()
         # disco ball on after 3rd person
         if (tracker > 2):
-            GPIO.output(13, GPIO.HIGH)
+            GPIO.output(8, GPIO.HIGH)
         onToggle = True
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
         mixers[tracker].stop()
         if (tracker > 2):
-            GPIO.output(13, GPIO.LOW)
+            GPIO.output(8, GPIO.LOW)
         onToggle = False
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()

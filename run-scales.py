@@ -32,11 +32,11 @@ numberOfTracks = len(sounds)
 for tracks in range(numberOfTracks):
     mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
 
-def Shutdown():
+def Shutdown(channel):
     print("SHUTTING DOWN")
 
 # Shutdown function executes when button is pressed
-GPIO.add_event_detect(16, GPIO.FALLING, callback=Shutdown(), bouncetime=2000)
+GPIO.add_event_detect(16, GPIO.FALLING, callback=Shutdown, bouncetime=2000)
 
 # function which runs whenever a the encoder moves
 def valueChanged(value):
@@ -45,10 +45,10 @@ def valueChanged(value):
         value = e1.resetValue()
     global onToggle
     global tracker
-    global channel
+    global mixChannel
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
-        channel = mixers[tracker].play()
+        mixChannel = mixers[tracker].play()
         # disco ball on after 3rd person
         if (tracker > 2):
             GPIO.output(8, GPIO.HIGH)
@@ -77,7 +77,7 @@ try:
         time.sleep(5)
         # if song finishes and scales haven't reset properly - force reset and move on to next track
         if (onToggle):
-            isPlaying = channel.get_busy()
+            isPlaying = mixChannel.get_busy()
             print(isPlaying)
             # if track has finished
             if (not isPlaying):

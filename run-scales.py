@@ -17,7 +17,6 @@ GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 
 # Initialize pygame mixer
 mixer.init()
-TRACK_END = pygame.USEREVENT + 1
 
 # Load the sounds
 from os import listdir
@@ -39,7 +38,6 @@ def valueChanged(value):
     if (value == boundaryVal and onToggle == False):
         print("PERSON STEPPING ON")
         channel = mixers[tracker].play()
-        channel.set_endevent(TRACK_END)
         # disco ball on after 3rd person
         if (tracker > 2):
             GPIO.output(8, GPIO.HIGH)
@@ -54,9 +52,6 @@ def valueChanged(value):
         value = e1.resetValue()
         # track that 1 more person has stood on the scales
         tracker = tracker + 1
-    # fallback in case scales value doesn't go back down properly
-    # elif (onToggle):
-    #     print(channel.get_busy())
 
 # 17 is the white wire, 18 is the green wire
 e1 = Encoder(18, 17, valueChanged)
@@ -65,17 +60,20 @@ e1 = Encoder(18, 17, valueChanged)
 try:
     while True:
         time.sleep(5)
+        # if song finishes and scales haven't reset properly - force reset and move on to next track
         if (onToggle):
             isPlaying = channel.get_busy()
             print(isPlaying)
+            # if track has finished
             if (not isPlaying):
+                print("SCALES DIDN'T RESET PROPERLY... MOVING ON TO NEXT TRACK")
+                # set pins to low
                 GPIO.output(8, GPIO.LOW)
+                # reset value to 0
                 value = e1.resetValue()
+                # go to next event
+                tracker = tracker + 1
                 onToggle = False
-
-        # for event in pygame.event.get():
-        #     if event.type == TRACK_END:
-        #         print("the song ended!")
 
 except Exception:
         pass

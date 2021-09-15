@@ -55,7 +55,7 @@ def valueChanged(value):
         # track that 1 more person has stood on the scales
         tracker = tracker + 1
     # fallback in case scales value doesn't go back down properly
-    if (onToggle):
+    elif (onToggle):
         print(channel.get_busy())
 
 # 17 is the white wire, 18 is the green wire

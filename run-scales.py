@@ -66,7 +66,7 @@ try:
     while True:
         time.sleep(5)
         if (onToggle):
-            isPlaying = channel.get_busy
+            isPlaying = channel.get_busy()
             print(isPlaying)
             if (not isPlaying):
                 GPIO.output(8, GPIO.LOW)

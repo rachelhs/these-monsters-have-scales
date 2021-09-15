@@ -14,6 +14,8 @@ tracker = 0
 GPIO.setmode(GPIO.BCM)
 # setup GPIO pin to trigger relay (+ disco lamp)
 GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
+# setup pin for shutdown button
+GPIO.setup(16, GPIO.OUT, initial=GPIO.HIGH)
 
 # Initialize pygame mixer
 mixer.init()
@@ -30,6 +32,13 @@ numberOfTracks = len(sounds)
 for tracks in range(numberOfTracks):
     mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
 
+def Shutdown():
+    print("SHUTTING DOWN")
+
+# Shutdown function executes when button is pressed
+GPIO.add_event_detect(16, GPIO.FALLING, callback=Shutdown, bouncetime=2000)
+
+# function which runs whenever a the encoder moves
 def valueChanged(value):
     print(value)
     if (value < 0):

@@ -56,7 +56,7 @@ def valueChanged(value):
     # fallback in case scales value doesn't go back down properly
     # elif (onToggle == True):
     else:
-        isPlaying = pygame.mixer.mixers[tracker].get_busy()
+        isPlaying = pygame.mixer.Sound('/home/pi/Desktop/these-monsters-have-scales/sounds/Jump-Around-sample.mp3').get_busy()
         print(isPlaying)
 
         # for event in pygame.event.get():

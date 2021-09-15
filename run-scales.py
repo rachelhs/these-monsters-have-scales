@@ -36,7 +36,7 @@ def Shutdown():
     print("SHUTTING DOWN")
 
 # Shutdown function executes when button is pressed
-GPIO.add_event_detect(16, GPIO.FALLING, callback=Shutdown, bouncetime=2000)
+GPIO.add_event_detect(16, GPIO.FALLING, callback=Shutdown(), bouncetime=2000)
 
 # function which runs whenever a the encoder moves
 def valueChanged(value):

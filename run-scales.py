@@ -65,7 +65,7 @@ def valueChanged(value):
             GPIO.output(8, GPIO.HIGH)
         elif (tracker > 4 and tracker <=6):
             GPIO.output(7, GPIO.HIGH)
-    elif (value == boundaryValDown and onToggle == False)
+    elif (value == boundaryValDown and onToggle == False):
         onToggle = True
     elif (value == boundaryValDown and onToggle == True):
         print("PERSON STEPPING OFF")

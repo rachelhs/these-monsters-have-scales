@@ -3,6 +3,10 @@ import RPi.GPIO as GPIO
 from encoder import Encoder
 import pygame
 from pygame import mixer
+import os
+from os import listdir
+from os.path import isfile, join
+import sys
 
 # keeps track of whether a person is standing on the scales or not
 onToggle = False
@@ -28,8 +32,6 @@ GPIO.setup(26, GPIO.OUT, initial=GPIO.HIGH)
 mixer.init()
 
 # Load the sounds
-from os import listdir
-from os.path import isfile, join
 mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds/'
 sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 mixers = []
@@ -38,8 +40,6 @@ numberOfTracks = len(sounds)
 # make array of mixers
 for tracks in range(numberOfTracks):
     mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
-
-import os
 
 def Shutdown(channel):
     GPIO.cleanup()
@@ -88,8 +88,8 @@ def valueChanged(value):
 e1 = Encoder(18, 17, valueChanged)
 
 # run code on loop
-try:
-    while True:
+while True:
+    try:
         time.sleep(5)
         # if song finishes and scales haven't reset properly - force reset and move on to next track
         if (onToggle):
@@ -111,8 +111,8 @@ try:
                     tracker = 0
                 onToggle = False
 
-except Exception:
-        pass
+    except BaseException as e:
+        print(e, file=sys.stderr)
 
 # reset pins before exit
 GPIO.cleanup()

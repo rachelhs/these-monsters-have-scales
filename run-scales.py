@@ -60,7 +60,7 @@ def valueChanged(value):
         # disco ball on after 3rd person
         if (tracker > 2 and tracker <=4):
             GPIO.output(8, GPIO.HIGH)
-        elif (tracker > 4):
+        elif (tracker > 4 and tracker <=6):
             GPIO.output(7, GPIO.HIGH)
         onToggle = True
     elif (value == boundaryVal and onToggle == True):
@@ -68,7 +68,7 @@ def valueChanged(value):
         mixers[tracker].stop()
         if (tracker > 2 and tracker <=4):
             GPIO.output(8, GPIO.LOW)
-        elif (tracker > 4):
+        elif (tracker > 4 and tracker <=6):
             GPIO.output(7, GPIO.LOW)
         onToggle = False
         # reset back to 0 -> encoder not precise

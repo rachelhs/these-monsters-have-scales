@@ -68,7 +68,7 @@ def valueChanged(value):
         mixers[tracker].stop()
         if (tracker > 2 and tracker <=4):
             GPIO.output(8, GPIO.LOW)
-        elif (traker > 4):
+        elif (tracker > 4):
             GPIO.output(7, GPIO.LOW)
         onToggle = False
         # reset back to 0 -> encoder not precise

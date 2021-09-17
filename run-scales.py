@@ -14,6 +14,8 @@ tracker = 0
 GPIO.setmode(GPIO.BCM)
 # setup GPIO pin to trigger relay (+ disco lamp)
 GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
+# setup GPIO pin to trigger relay (+ airbed pump with horn)
+GPIO.setup(7, GPIO.OUT, initial=GPIO.LOW)
 # setup pin for shutdown button
 GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 # light up LED on startup
@@ -58,12 +60,16 @@ def valueChanged(value):
         # disco ball on after 3rd person
         if (tracker > 2):
             GPIO.output(8, GPIO.HIGH)
+        elif (tracker > 4):
+            GPIO.output(7, GPIO.HIGH)
         onToggle = True
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
         mixers[tracker].stop()
         if (tracker > 2):
             GPIO.output(8, GPIO.LOW)
+        elif (traker > 4):
+            GPIO.output(7, GPIO.LOW)
         onToggle = False
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()
@@ -90,6 +96,7 @@ try:
                 print("SCALES DIDN'T RESET PROPERLY... MOVING ON TO NEXT TRACK")
                 # set pins to low
                 GPIO.output(8, GPIO.LOW)
+                GPIO.output(7, GPIO.LOW)
                 # reset value to 0
                 value = e1.resetValue()
                 # track that 1 more person has stood on the scales

@@ -6,7 +6,10 @@ from pygame import mixer
 
 # keeps track of whether a person is standing on the scales or not
 onToggle = False
-boundaryVal = 40
+# value at which scales register someone is standing on
+boundaryValUp = 40
+# value at which the second time it's seen, person is getting off
+boundaryValDown = 60
 
 # tracks how many people have stood on the scales
 tracker = 0
@@ -54,7 +57,7 @@ def valueChanged(value):
     global onToggle
     global tracker
     global mixChannel
-    if (value == boundaryVal and onToggle == False):
+    if (value == boundaryValUp and onToggle == False):
         print("PERSON STEPPING ON")
         mixChannel = mixers[tracker].play()
         # disco ball on after 3rd person
@@ -62,8 +65,9 @@ def valueChanged(value):
             GPIO.output(8, GPIO.HIGH)
         elif (tracker > 4 and tracker <=6):
             GPIO.output(7, GPIO.HIGH)
+    elif (value = boundaryValDown and onToggle == False)
         onToggle = True
-    elif (value == boundaryVal and onToggle == True):
+    elif (value == boundaryValDown and onToggle == True):
         print("PERSON STEPPING OFF")
         mixers[tracker].stop()
         if (tracker > 2 and tracker <=4):

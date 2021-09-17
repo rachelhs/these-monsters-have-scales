@@ -58,7 +58,7 @@ def valueChanged(value):
         print("PERSON STEPPING ON")
         mixChannel = mixers[tracker].play()
         # disco ball on after 3rd person
-        if (tracker > 2):
+        if (tracker > 2 and tracker <=4):
             GPIO.output(8, GPIO.HIGH)
         elif (tracker > 4):
             GPIO.output(7, GPIO.HIGH)
@@ -66,7 +66,7 @@ def valueChanged(value):
     elif (value == boundaryVal and onToggle == True):
         print("PERSON STEPPING OFF")
         mixers[tracker].stop()
-        if (tracker > 2):
+        if (tracker > 2 and tracker <=4):
             GPIO.output(8, GPIO.LOW)
         elif (traker > 4):
             GPIO.output(7, GPIO.LOW)

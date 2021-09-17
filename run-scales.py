@@ -7,6 +7,14 @@ import os
 from os import listdir
 from os.path import isfile, join
 import sys
+from pathlib import Path
+import signal
+
+def exit_handler(*args):
+    GPIO.cleanup()
+
+signal.signal(signal.SIGINT, exit_handler)
+signal.signal(signal.SIGTERM, exit_handler)
 
 # keeps track of whether a person is standing on the scales or not
 onToggle = False
@@ -32,14 +40,10 @@ GPIO.setup(26, GPIO.OUT, initial=GPIO.HIGH)
 mixer.init()
 
 # Load the sounds
-mypath = '/home/pi/Desktop/these-monsters-have-scales/sounds/'
-sounds = [f for f in listdir(mypath) if isfile(join(mypath, f))]
-mixers = []
-# count number of tracks
-numberOfTracks = len(sounds)
-# make array of mixers
-for tracks in range(numberOfTracks):
-    mixers.append(mixer.Sound(f"{mypath}{sounds[tracks]}"))
+sound_root = Path('/home/pi/Desktop/these-monsters-have-scales/sounds/')
+sound_paths = [p for p in sound_root.iterdir() if p.is_file()]
+print(sound_paths)
+mixers = [mixer.Sound(str(sound_path)) for sound_path in sound_paths]
 
 def Shutdown(channel):
     GPIO.cleanup()
@@ -114,5 +118,3 @@ while True:
     except BaseException as e:
         print(e, file=sys.stderr)
 
-# reset pins before exit
-GPIO.cleanup()

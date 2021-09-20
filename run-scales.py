@@ -1,17 +1,17 @@
 import time
 import RPi.GPIO as GPIO
 from encoder import Encoder
-import pygame
-from pygame import mixer
 import os
 from os import listdir
 from os.path import isfile, join
 import sys
 from pathlib import Path
 import signal
+print("Starting scales", file=sys.stderr)
 
 def exit_handler(*args):
     GPIO.cleanup()
+    sys.exit(0)
 
 signal.signal(signal.SIGINT, exit_handler)
 signal.signal(signal.SIGTERM, exit_handler)
@@ -26,6 +26,7 @@ boundaryValDown = 60
 # tracks how many people have stood on the scales
 tracker = 0
 
+LED_PIN = 26
 GPIO.setmode(GPIO.BCM)
 # setup GPIO pin to trigger relay (+ disco lamp)
 GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
@@ -34,8 +35,11 @@ GPIO.setup(7, GPIO.OUT, initial=GPIO.LOW)
 # setup pin for shutdown button
 GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 # light up LED on startup
-GPIO.setup(26, GPIO.OUT, initial=GPIO.HIGH)
+GPIO.setup(LED_PIN, GPIO.OUT, initial=GPIO.HIGH)
 
+
+import pygame
+from pygame import mixer
 # Initialize pygame mixer
 mixer.init()
 
@@ -47,7 +51,7 @@ mixers = [mixer.Sound(str(sound_path)) for sound_path in sound_paths]
 
 def Shutdown(channel):
     GPIO.cleanup()
-    print("SHUTTING DOWN")
+    print("SHUTTING DOWN", file=sys.stderr)
     os.system("sudo shutdown -h now")
 
 # Shutdown function executes when button is pressed
@@ -55,7 +59,7 @@ GPIO.add_event_detect(16, GPIO.FALLING, callback=Shutdown, bouncetime=2000)
 
 # function which runs whenever a the encoder moves
 def valueChanged(value):
-    print(value)
+    print(value, file=sys.stderr)
     if (value < 0):
         value = e1.resetValue()
     global onToggle
@@ -92,29 +96,25 @@ def valueChanged(value):
 e1 = Encoder(18, 17, valueChanged)
 
 # run code on loop
+print("Starting scale loop", file=sys.stderr)
 while True:
-    try:
-        time.sleep(5)
-        # if song finishes and scales haven't reset properly - force reset and move on to next track
-        if (onToggle):
-            isPlaying = mixChannel.get_busy()
-            print(isPlaying)
-            # if track has finished
-            if (not isPlaying):
-                print("SCALES DIDN'T RESET PROPERLY... MOVING ON TO NEXT TRACK")
-                # set pins to low
-                GPIO.output(8, GPIO.LOW)
-                GPIO.output(7, GPIO.LOW)
-                # reset value to 0
-                value = e1.resetValue()
-                # track that 1 more person has stood on the scales
-                if (tracker < (numberOfTracks - 1)):
-                    tracker = tracker + 1
-                # loop back to the beginning if at the end of the playlist
-                else:
-                    tracker = 0
-                onToggle = False
-
-    except BaseException as e:
-        print(e, file=sys.stderr)
-
+    time.sleep(5)
+    # if song finishes and scales haven't reset properly - force reset and move on to next track
+    if (onToggle):
+        isPlaying = mixChannel.get_busy()
+        print(isPlaying)
+        # if track has finished
+        if (not isPlaying):
+            print("SCALES DIDN'T RESET PROPERLY... MOVING ON TO NEXT TRACK")
+            # set pins to low
+            GPIO.output(8, GPIO.LOW)
+            GPIO.output(7, GPIO.LOW)
+            # reset value to 0
+            value = e1.resetValue()
+            # track that 1 more person has stood on the scales
+            if (tracker < (len(mixers) - 1)):
+                tracker = tracker + 1
+            # loop back to the beginning if at the end of the playlist
+            else:
+                tracker = 0
+            onToggle = False

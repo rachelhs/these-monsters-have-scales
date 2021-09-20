@@ -32,6 +32,8 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW)
 # setup GPIO pin to trigger relay (+ airbed pump with horn)
 GPIO.setup(7, GPIO.OUT, initial=GPIO.LOW)
+# setup GPIO pin to trigger relay (+ bubble machine)
+GPIO.setup(23, GPIO.OUT, initial=GPIO.LOW)
 # setup pin for shutdown button
 GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 # light up LED on startup
@@ -73,6 +75,8 @@ def valueChanged(value):
             GPIO.output(8, GPIO.HIGH)
         elif (tracker > 4 and tracker <=6):
             GPIO.output(7, GPIO.HIGH)
+        elif (tracker > 6 and tracker <= 8):
+            GPIO.output(23, GPIO.HIGH)
     elif (value == boundaryValDown and onToggle == False):
         onToggle = True
     elif (value == boundaryValDown and onToggle == True):
@@ -82,6 +86,8 @@ def valueChanged(value):
             GPIO.output(8, GPIO.LOW)
         elif (tracker > 4 and tracker <=6):
             GPIO.output(7, GPIO.LOW)
+        elif (tracker > 6 and tracker <=8):
+            GPIO.output(23, GPIO.LOW)
         onToggle = False
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()
@@ -109,6 +115,7 @@ while True:
             # set pins to low
             GPIO.output(8, GPIO.LOW)
             GPIO.output(7, GPIO.LOW)
+            GPIO.output(23, GPIO.LOW)
             # reset value to 0
             value = e1.resetValue()
             # track that 1 more person has stood on the scales

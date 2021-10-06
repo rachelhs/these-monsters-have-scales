@@ -76,18 +76,15 @@ def valueChanged(value):
         # party horn for 5th person
         elif (tracker == 4):
             GPIO.output(7, GPIO.HIGH)
-        # disco ball and party horn for 7th person
+        # bubbles for 7th person
         elif (tracker == 6):
-            GPIO.output(8, GPIO.HIGH)
-            GPIO.output(7, GPIO.HIGH)
-        # bubbles for 9th person
-        elif (tracker == 8):
             GPIO.output(23, GPIO.HIGH)
-        # everything for 11th person
+        # disco for 9th person
+        elif (tracker == 8):
+        # disco and horn for 11th person
         elif (tracker == 10):
             GPIO.output(8, GPIO.HIGH)
             GPIO.output(7, GPIO.HIGH)
-            GPIO.output(23, GPIO.HIGH)
     elif (value == boundaryValDown and onToggle == False):
         onToggle = True
     elif (value == boundaryValDown and onToggle == True):
@@ -98,14 +95,12 @@ def valueChanged(value):
         elif (tracker == 4):
             GPIO.output(7, GPIO.LOW)
         elif (tracker == 6):
-            GPIO.output(8, GPIO.LOW)
-            GPIO.output(7, GPIO.LOW)
-        elif (tracker == 8):
             GPIO.output(23, GPIO.LOW)
+        elif (tracker == 8):
+            GPIO.output(8, GPIO.LOW)
         elif (tracker == 10):
             GPIO.output(8, GPIO.LOW)
             GPIO.output(7, GPIO.LOW) 
-            GPIO.output(23, GPIO.LOW) 
         onToggle = False
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()

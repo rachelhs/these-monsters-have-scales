@@ -70,24 +70,42 @@ def valueChanged(value):
     if (value == boundaryValUp and onToggle == False):
         print("PERSON STEPPING ON")
         mixChannel = mixers[tracker].play()
-        # disco ball on after 3rd person
-        if (tracker > 2 and tracker <=4):
+        # disco ball on for 3rd person
+        if (tracker == 2):
             GPIO.output(8, GPIO.HIGH)
-        elif (tracker > 4 and tracker <=6):
+        # party horn for 5th person
+        elif (tracker == 4):
             GPIO.output(7, GPIO.HIGH)
-        elif (tracker > 6 and tracker <= 8):
+        # disco ball and party horn for 7th person
+        elif (tracker == 6):
+            GPIO.output(8, GPIO.HIGH)
+            GPIO.output(7, GPIO.HIGH)
+        # bubbles for 9th person
+        elif (tracker == 8):
+            GPIO.output(23, GPIO.HIGH)
+        # everything for 11th person
+        elif (tracker == 10):
+            GPIO.output(8, GPIO.HIGH)
+            GPIO.output(7, GPIO.HIGH)
             GPIO.output(23, GPIO.HIGH)
     elif (value == boundaryValDown and onToggle == False):
         onToggle = True
     elif (value == boundaryValDown and onToggle == True):
         print("PERSON STEPPING OFF")
         mixers[tracker].stop()
-        if (tracker > 2 and tracker <=4):
+        if (tracker == 2):
             GPIO.output(8, GPIO.LOW)
-        elif (tracker > 4 and tracker <=6):
+        elif (tracker == 4):
             GPIO.output(7, GPIO.LOW)
-        elif (tracker > 6 and tracker <=8):
+        elif (tracker == 6):
+            GPIO.output(8, GPIO.LOW)
+            GPIO.output(7, GPIO.LOW)
+        elif (tracker == 8):
             GPIO.output(23, GPIO.LOW)
+        elif (tracker == 10):
+            GPIO.output(8, GPIO.LOW)
+            GPIO.output(7, GPIO.LOW) 
+            GPIO.output(23, GPIO.LOW) 
         onToggle = False
         # reset back to 0 -> encoder not precise
         value = e1.resetValue()

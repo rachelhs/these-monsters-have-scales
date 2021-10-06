@@ -81,6 +81,7 @@ def valueChanged(value):
             GPIO.output(23, GPIO.HIGH)
         # disco for 9th person
         elif (tracker == 8):
+            GPIO.output(8, GPIO.HIGH)
         # disco and horn for 11th person
         elif (tracker == 10):
             GPIO.output(8, GPIO.HIGH)
